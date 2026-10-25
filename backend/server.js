@@ -8,7 +8,7 @@ import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000" }));
+app.use(cors({ origin: process.env.CLIENT_URL || "https://mhorganic-2nol.vercel.app/" }));
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
 app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "organic-store-api" }));
