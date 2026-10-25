@@ -9,13 +9,15 @@ import orderRoutes from "./routes/orderRoutes.js";
 
 const app = express();
 
-// CORS-er sheshe slash (/) bad dewa hoyeche
-app.use(cors({ origin: process.env.CLIENT_URL || "https://mhorganic-2nol.vercel.app" }));
+// CORS middleware abar add kora holo (frontend URL allow korar jonno)
+app.use(cors({ 
+  origin: process.env.CLIENT_URL || "https://mhorganic-uq5m.vercel.app/" 
+}));
 
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
 
-// Root route ekhane agiye ana hoyeche
+// Root route
 app.get("/", (_req, res) => {
   res.json({ message: "Welcome to Organic Store API!", status: "active" });
 });
