@@ -11,7 +11,7 @@ const app = express();
 
 // CORS middleware abar add kora holo (frontend URL allow korar jonno)
 app.use(cors({ 
-  origin: process.env.CLIENT_URL || "https://mhorganic-uq5m.vercel.app/" 
+  origin: process.env.CLIENT_URL || "https://mhorganic.vercel.app/" 
 }));
 
 app.use(express.json({ limit: "1mb" }));
