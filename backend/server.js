@@ -10,10 +10,16 @@ import orderRoutes from "./routes/orderRoutes.js";
 const app = express();
 
 // CORS middleware abar add kora holo (frontend URL allow korar jonno)
-app.use(cors({ 
-  origin: process.env.CLIENT_URL || "https://mhorganic.vercel.app/" 
-}));
+const allowedOrigins = [
+  "https://mhorganic-k8gy.vercel.app",
+  "https://mhorganic.vercel.app",
+  "http://localhost:3000"
+];
 
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
 
