@@ -9,17 +9,25 @@ import orderRoutes from "./routes/orderRoutes.js";
 
 const app = express();
 
-// CORS middleware abar add kora holo (frontend URL allow korar jonno)
+// ট্রেইলিং স্ল্যাশ ছাড়া সঠিক ফরম্যাটে অরিজিনগুলো দিন
 const allowedOrigins = [
-  "https://mhorganic-kabv.vercel.app/",
- 
+  "https://mhorganic-kabv.vercel.app",
+  "https://mhorganic-k8gy.vercel.app",
+  "https://mhorganic.vercel.app",
   "http://localhost:3000"
 ];
 
 app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
+  origin: (origin, callback) => {
+    // Postman বা server-to-server রিকোয়েস্টের জন্য origin না থাকলে অ্যালাউ করবে
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    return callback(new Error(`CORS blocked origin: ${origin}`));
+  },
+  credentials: true,
 }));
+
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
 
@@ -29,6 +37,7 @@ app.get("/", (_req, res) => {
 });
 
 app.get("/api/health", (_req, res) => res.json({ status: "ok", service: "organic-store-api" }));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", orderRoutes);
@@ -40,7 +49,7 @@ app.use((err, _req, res, _next) => {
 
 const port = process.env.PORT || 5000;
 connectDB()
-  .then(() => app.listen(port, () => console.log(`API running on http://localhost:${port}`)))
+  .then(() => app.listen(port, () => console.log(`API running on port ${port}`)))
   .catch((err) => { 
     console.error("Failed to start API:", err.message); 
     process.exit(1); 
