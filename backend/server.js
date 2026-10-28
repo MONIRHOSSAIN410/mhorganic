@@ -12,8 +12,8 @@ const app = express();
 
 // Allowed Frontend URLs
 const allowedOrigins = [
-  "https://mhorganic-m6re.vercel.app/",
-  "https://mhorganic-m6re.vercel.app/",
+  "https://mhorganic-m6re.vercel.app",
+  "https://mhorganic-m6re.vercel.app",
   "http://localhost:3000",
 ];
 
