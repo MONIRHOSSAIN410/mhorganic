@@ -11,27 +11,30 @@ const app = express();
 
 // Allowed frontend URLs
 const allowedOrigins = [
-  "https://mhorganic-m6re.vercel.app",
+  "https://mhorganic-7ubl.vercel.app",
   ...(process.env.CLIENT_URL || "")
     .split(",")
     .map((url) => url.trim().replace(/\/+$/, ""))
     .filter(Boolean),
 ];
 
-// CORS configuration
-const corsOptions = {
-  origin: (origin, callback) => {
-    // Allow requests without an Origin header, such as server-to-server requests
-    if (!origin || allowedOrigins.includes(origin.replace(/\/+$/, ""))) {
-      return callback(null, true);
-    }
-    console.error("CORS blocked origin:", origin);
-    return callback(new Error("Origin not allowed by CORS"));
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (
+        !origin ||
+        allowedOrigins.includes(origin.replace(/\/+$/, ""))
+      ) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked origin: ${origin}`));
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "1mb" }));
