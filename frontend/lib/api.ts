@@ -1,4 +1,4 @@
-export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://mhorganic.onrender.com/api";
 export function getToken() {
   if (typeof window === "undefined") return "";
   return localStorage.getItem("organic_admin_token") || "";
