@@ -18,6 +18,7 @@ const allowedOrigins = [
     .filter(Boolean),
 ];
 
+// CORS Middleware (একবারই কনফিগার করা হলো)
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -36,7 +37,6 @@ app.use(
   })
 );
 
-app.use(cors(corsOptions));
 app.use(express.json({ limit: "1mb" }));
 app.use(morgan("dev"));
 
