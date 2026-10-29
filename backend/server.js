@@ -11,7 +11,7 @@ const app = express();
 
 // Allowed frontend URLs
 const allowedOrigins = [
-  "https://mhorganic-7ubl.vercel.app",
+  "https://mhorganic-4ef1.vercel.app",
   ...(process.env.CLIENT_URL || "")
     .split(",")
     .map((url) => url.trim().replace(/\/+$/, ""))
